@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ServidorNotas.Models;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -13,9 +14,14 @@ namespace ServidorNotas.Controllers
     public class NotasController : ApiController
     {
         [HttpGet]
-        public string Get()
+        [Route("calificaciones/{dni}/{periodo}")]
+        public async Task<IHttpActionResult> Get(string dni, string periodo)
         {
-            return "Hola";
+            return await Task.Run(() => 
+            {
+                var res = Calificaciones.GetCalificaciones(dni,int.Parse(periodo));
+                return Ok(res);
+            });       
         }
     }
 }

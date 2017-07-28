@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:intf="http://services.academico.ulasalle.com" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:impl="http://services.academico.ulasalle.com" targetNamespace="http://services.academico.ulasalle.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://services.academico.ulasalle.com">
+      <xsd:element name="getNotas">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="dni" type="xsd:string" />
+            <xsd:element name="periodo" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getNotasResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="getNotasReturn" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getCalificaciones">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="dni" type="xsd:string" />
+            <xsd:element name="periodo" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getCalificacionesResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="getCalificacionesReturn" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getMatricula">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="dni" type="xsd:string" />
+            <xsd:element name="periodo" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getMatriculaResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="getMatriculaReturn" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="getCalificacionesRequest">
+    <wsdl:part name="parameters" element="impl:getCalificaciones" />
+  </wsdl:message>
+  <wsdl:message name="getMatriculaRequest">
+    <wsdl:part name="parameters" element="impl:getMatricula" />
+  </wsdl:message>
+  <wsdl:message name="getNotasRequest">
+    <wsdl:part name="parameters" element="impl:getNotas" />
+  </wsdl:message>
+  <wsdl:message name="getCalificacionesResponse">
+    <wsdl:part name="parameters" element="impl:getCalificacionesResponse" />
+  </wsdl:message>
+  <wsdl:message name="getNotasResponse">
+    <wsdl:part name="parameters" element="impl:getNotasResponse" />
+  </wsdl:message>
+  <wsdl:message name="getMatriculaResponse">
+    <wsdl:part name="parameters" element="impl:getMatriculaResponse" />
+  </wsdl:message>
+  <wsdl:portType name="calificacion">
+    <wsdl:operation name="getNotas">
+      <wsdl:input name="getNotasRequest" message="impl:getNotasRequest" />
+      <wsdl:output name="getNotasResponse" message="impl:getNotasResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getCalificaciones">
+      <wsdl:input name="getCalificacionesRequest" message="impl:getCalificacionesRequest" />
+      <wsdl:output name="getCalificacionesResponse" message="impl:getCalificacionesResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getMatricula">
+      <wsdl:input name="getMatriculaRequest" message="impl:getMatriculaRequest" />
+      <wsdl:output name="getMatriculaResponse" message="impl:getMatriculaResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="calificacionSoapBinding" type="impl:calificacion">
+    <wsdlsoap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="getNotas">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="getNotasRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getNotasResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCalificaciones">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="getCalificacionesRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getCalificacionesResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getMatricula">
+      <wsdlsoap:operation soapAction="" />
+      <wsdl:input name="getMatriculaRequest">
+        <wsdlsoap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="getMatriculaResponse">
+        <wsdlsoap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="calificacionService">
+    <wsdl:port name="calificacion" binding="impl:calificacionSoapBinding">
+      <wsdlsoap:address location="http://academico.ulasalle.edu.pe:8080/services/services/calificacion" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
