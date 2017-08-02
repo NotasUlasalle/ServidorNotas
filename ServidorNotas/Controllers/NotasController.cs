@@ -1,4 +1,7 @@
-﻿using ServidorNotas.Models;
+﻿using ServidorNotas.DTO;
+using ServidorNotas.Models;
+using ServidorNotas.Sesion;
+using ServidorNotas.Util;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,15 +16,21 @@ namespace ServidorNotas.Controllers
 {
     public class NotasController : ApiController
     {
-        [HttpGet]
-        [Route("calificaciones/{dni}/{periodo}")]
-        public async Task<IHttpActionResult> Get(string dni, string periodo)
+       
+        [HttpPost]
+        [Route("notas/calificaciones")]
+        public async Task<IHttpActionResult> GetCalificaciones([FromBody] DtoGetCalificaciones dto)
         {
-            return await Task.Run(() => 
+            return await Task.Run(() =>
             {
-                var res = Calificaciones.GetCalificaciones(dni,int.Parse(periodo));
-                return Ok(res);
-            });       
+                var valido = Sesiones.Instancia.RevisarSesion(dto.Id);
+                dynamic res = null;
+                if (valido)
+                    res = Calificaciones.GetCalificaciones(dto.Dni, dto.Periodo);
+                return Ok(new { Respuesta = res });
+            });
         }
+
+
     }
 }
